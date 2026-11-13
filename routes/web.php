@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/orders/create', [OrderController::class, 'create']);
+
+Route::post('/orders', [OrderController::class, 'store']);

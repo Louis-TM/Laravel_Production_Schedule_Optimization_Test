@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
+    public $timestamps = false;
+    
     protected $fillable = [
         'customer_name',
         'product_type_id',

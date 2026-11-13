@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductType;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
 
 class OrderController
 {
@@ -24,7 +27,7 @@ class OrderController
     }
 
     public function store(Request $request) {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'customer_name' => 'required|string|max:255',
             'product_type_id' => 'required|exists:product_types,id',
             'need_by' => 'required|date',
@@ -32,6 +35,24 @@ class OrderController
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1'
         ]);
+
+        DB::transaction(function () use ($validatedData) {
+            
+            $order = Order::create([
+            'customer_name' => $validatedData['customer_name'],
+            'product_type_id' => $validatedData['product_type_id'],
+            'need_by' => $validatedData['need_by'],
+        ]);
+
+            foreach ($validatedData['items'] as $item) {
+                $order->items()->create([
+                    'product_id' => $item['product_id'],
+                    'quantity' => $item['quantity'],
+                ]);
+            }
+        });
+        return redirect('/orders/create')
+            ->with('success', 'Order created successfully!');
     }
 
 }
