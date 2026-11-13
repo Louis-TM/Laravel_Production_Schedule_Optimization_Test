@@ -11,3 +11,5 @@ Route::get('/', function () {
 Route::get('/orders/create', [OrderController::class, 'create']);
 
 Route::post('/orders', [OrderController::class, 'store']);
+
+Route::get('/schedule', [OrderController::class, 'schedule']);

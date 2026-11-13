@@ -73,29 +73,3 @@
 </body>
 </html>
 
-<script>
-    let itemIndex = 1;
-
-    document.getElementById('add-item').addEventListener('click', () => {
-        const container = document.getElementById('items-container');
-        const row = container.querySelector('.item-row').cloneNode(true);
-
-        row.querySelectorAll('input, select').forEach(field => {
-            field.name = field.name.replace(/\[\d+\]/, `[${itemIndex}]`);
-            field.value = '';
-        });
-
-        container.appendChild(row);
-        itemIndex++;
-    });
-
-    document.getElementById('items-container').addEventListener('click', (event) => {
-        if (!event.target.classList.contains('remove-item')) return;
-
-        const container = document.getElementById('items-container');
-
-        if (container.querySelectorAll('.item-row').length > 1) {
-            event.target.closest('.item-row').remove();
-        }
-    });
-</script>
