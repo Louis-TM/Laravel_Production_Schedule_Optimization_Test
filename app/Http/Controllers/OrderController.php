@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class OrderController
 {
     public function index() {
-        $orders = Order::with(['product_type', 'items'])->get();
+        $orders = Order::with(['productType', 'items'])->get();
             
         return view('orders.index', compact('orders'));
     }
@@ -24,7 +24,7 @@ class OrderController
         $productTypes = ProductType::all();
         $products = Product::all();
 
-        return view('orders.create');
+        return view('orders.create', compact('productTypes', 'products'));
     }
 
     public function store(Request $request) {

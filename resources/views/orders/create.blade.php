@@ -27,7 +27,7 @@
                             <label for="product_type_id" class="form-label">Product Type</label>
                             <select class="form-select" id="product_type_id" name="product_type_id" required>
                                 <option value="">Select Product Type...</option>
-                                @foreach(\App\Models\ProductType::all() as $type)
+                                @foreach($productTypes as $type)
                                     <option value="{{ $type->id }}">{{ $type->type_name }} ({{ $type->production_speed }} units/hr)</option>
                                 @endforeach
                             </select>
@@ -46,7 +46,7 @@
                         required
                     >
                         <option value="">Select Product...</option>
-                        @foreach(\App\Models\Product::all() as $product)
+                        @foreach($products as $product)
                             <option value="{{ $product->id }}">
                                 {{ $product->product_name }}
                             </option>
