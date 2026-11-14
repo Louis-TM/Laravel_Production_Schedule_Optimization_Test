@@ -5,7 +5,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/orders/create');
 });
 
 Route::get('/orders/create', [OrderController::class, 'create']);
